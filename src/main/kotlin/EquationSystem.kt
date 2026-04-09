@@ -5,7 +5,6 @@ import org.example.logarithm.*
 
 class EquationSystem (
     private val sin: Sine = Sine(),
-    private val cos: Cosine = Cosine(),
     private val cot: Cotangent = Cotangent(),
     private val sec: Secant = Secant(),
 

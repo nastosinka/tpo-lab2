@@ -12,8 +12,8 @@ class CSVGraphWriter(
     fun write(start: Double, end: Double, step: Double) {
         require(step > 0) { "шаг должен быть положительным" }
 
-        val file = File(outputDir + "$name.csv")
-        file.parentFile.mkdirs()
+        val file = File(outputDir, "$name.csv")
+        file.parentFile?.mkdirs()
 
         PrintWriter(file).use { writer ->
             writer.println("x,f(x)")
