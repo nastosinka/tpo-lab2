@@ -7,8 +7,10 @@ import java.io.File
 
 object Main {
 
-    private val outputDir =
-        System.getProperty("user.dir") + File.separator + "plots" + File.separator
+    private val outputDir = File(
+        System.getProperty("user.dir"),
+        "plots"
+    ).absolutePath + File.separator
 
     private const val START = -10.0
     private const val END = 10.0
@@ -17,18 +19,22 @@ object Main {
     @JvmStatic
     fun main(args: Array<String>) {
 
-        CSVGraphWriter(Sine(), outputDir).write(START, END, STEP)
-        CSVGraphWriter(Cosine(), outputDir).write(START, END, STEP)
-        CSVGraphWriter(Secant(), outputDir).write(START, END, STEP)
-        CSVGraphWriter(Cosecant(), outputDir).write(START, END, STEP)
-        CSVGraphWriter(Tangent(), outputDir).write(START, END, STEP)
-        CSVGraphWriter(Cotangent(), outputDir).write(START, END, STEP)
+        val functions = listOf(
+            Pair("Sine") { x: Double -> Sine().calculate(x) },
+            Pair("Cosine") { x: Double -> Cosine().calculate(x) },
+            Pair("Secant") { x: Double -> Secant().calculate(x) },
+            Pair("Cotangent") { x: Double -> Cotangent().calculate(x) },
 
-        CSVGraphWriter(NaturalLogarithm(), outputDir).write(START, END, STEP)
-        CSVGraphWriter(BaseNLogarithm(2.0), outputDir).write(START, END, STEP)
-        CSVGraphWriter(BaseNLogarithm(3.0), outputDir).write(START, END, STEP)
-        CSVGraphWriter(BaseNLogarithm(10.0), outputDir).write(START, END, STEP)
+            Pair("NaturalLogarithm") { x: Double -> NaturalLogarithm().calculate(x) },
+            Pair("Log2") { x: Double -> BaseNLogarithm(2.0).calculate(x) },
+            Pair("Log3") { x: Double -> BaseNLogarithm(3.0).calculate(x) },
+            Pair("Log10") { x: Double -> BaseNLogarithm(10.0).calculate(x) },
 
-        CSVGraphWriter(EquationSystem(), outputDir).write(START, END, STEP)
+            Pair("EquationSystem") { x: Double -> EquationSystem()(x) }
+        )
+
+        functions.forEach { (name, func) ->
+            CSVGraphWriter(func, outputDir, name).write(START, END, STEP)
+        }
     }
 }
