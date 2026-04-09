@@ -31,7 +31,7 @@ class CSVGraphWriterTest {
     }
 
     @Test
-    fun `should create file`() {
+    fun `создаёт файл`() {
         csvWriter = CSVGraphWriter(mockFunction, tempDir.path, "test")
         csvWriter.write(0.0, 0.0, 1.0)
 
@@ -40,7 +40,7 @@ class CSVGraphWriterTest {
     }
 
     @Test
-    fun `should write to file`() {
+    fun `записывает в файл`() {
         whenever(mockFunction.invoke(any())).thenReturn(1.0)
 
         csvWriter = CSVGraphWriter(mockFunction, tempDir.path, "test")
@@ -54,7 +54,7 @@ class CSVGraphWriterTest {
     }
 
     @Test
-    fun `should handle arithmetic exception`() {
+    fun `обрабатывает ArithmeticException`() {
         whenever(mockFunction.invoke(any())).thenThrow(ArithmeticException("разрыв"))
 
         csvWriter = CSVGraphWriter(mockFunction, tempDir.path, "test")
@@ -68,7 +68,7 @@ class CSVGraphWriterTest {
     }
 
     @Test
-    fun `write handles exception inside function`() {
+    fun `корректная обработка исключений`() {
         val tempDir = Files.createTempDirectory("csv_test").toFile()
 
         val func: (Double) -> Double = {
@@ -87,7 +87,7 @@ class CSVGraphWriterTest {
     }
 
     @Test
-    fun `write does nothing when start end`() {
+    fun `файл создаётся даже в пограничных случаях`() {
         val tempDir = Files.createTempDirectory("csv_test").toFile()
 
         val func: (Double) -> Double = { it }
@@ -98,7 +98,7 @@ class CSVGraphWriterTest {
 
         val file = File(tempDir, "test.csv")
 
-        assertTrue(file.exists()) // файл создаётся
+        assertTrue(file.exists())
     }
 
 }
