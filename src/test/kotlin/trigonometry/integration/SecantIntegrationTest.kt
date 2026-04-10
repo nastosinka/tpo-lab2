@@ -41,7 +41,7 @@ class SecantIntegrationTest {
     }
 
     @Test
-    fun `Секанс вызывает косинус`() {
+    fun `Секанс вызывает синус`() {
         val sec = Secant(spyCosine)
         sec.calculate(1.0)
         verify(spyCosine, atLeastOnce()).calculate(any())

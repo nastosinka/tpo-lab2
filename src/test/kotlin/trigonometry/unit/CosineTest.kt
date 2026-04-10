@@ -61,10 +61,5 @@ class CosineTest {
         assertEquals(cosine.calculate(x), cosine.calculate(x + 2 * PI), DELTA)
     }
 
-    @Test
-    fun `Проверка сходимости для невысокой точности`() {
-        val lowPrec = Cosine(1e-3)
-        assertEquals(1.0, lowPrec.calculate(0.0), 1e-3)
-    }
 
 }

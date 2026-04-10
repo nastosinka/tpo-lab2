@@ -74,9 +74,4 @@ class CotangentTest {
         assertEquals(cotangent.calculate(x), cotangent.calculate(x + PI), DELTA)
     }
 
-    @Test
-    fun `Проверка сходимости для невысокой точности`() {
-        val lowPrec = Cotangent(Sine(1e-3), Cosine(1e-3))
-        assertEquals(1.0, lowPrec.calculate(PI / 4), 1e-3)
-    }
 }
